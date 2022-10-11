@@ -1,0 +1,15 @@
+mat-toolbar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: auto;
+    z-index: 1000;
+    width: 100%;
+    height: 100px;
+    color: #005C69;
+}
+
+
+.espacio {
+    flex: 1 1 auto;
+}
+
