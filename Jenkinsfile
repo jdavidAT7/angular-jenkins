@@ -5,11 +5,14 @@ pipeline {
             args '-p 4200:4200'
             } 
         }
+    environment {
+        CI = 'true'
+    }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'node --version'
+                sh 'npm install'
             }
         }
-    }
+    }    
 }
