@@ -1,6 +1,6 @@
 node {
     stage('Checkout SCM') {
-        git branch: 'master', url: 'git@github.com:jdavidAT7/angular-jenkins.git'
+        git branch: 'master', url: 'https://github.com/jdavidAT7/angular-jenkins.git'
     }
 
     stage('Install node modules') {
