@@ -14,15 +14,21 @@ pipeline {
             }
         }
         stage("Test") {
-        sh "npm run test-headless"
+          steps{
+            sh "npm run test-headless"
+          }
     }
 
         stage("Build") {
-            sh "npm run build --prod"
+            steps{
+              sh "npm run build --prod"
+            }
         }
     
     stage("Copy") {
-        sh "cp -a /var/jenkins_home/workspace/angular-test/. /var/www/jenkins_test/html/"
+        steps{
+          sh "cp -a /var/jenkins_home/workspace/angular-test/. /var/www/jenkins_test/html/"
+        }
     }
   }
 }
