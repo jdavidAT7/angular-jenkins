@@ -1,18 +1,12 @@
-node {
-    stage('Checkout SCM') {
-        git branch: 'master', url: 'https://github.com/jdavidAT7/angular-jenkins.git'
+pipeline {
+    agent {
+        docker { image 'node:16.13.1-alpine' }
     }
-
-    stage('Install node modules') {
-        sh "npm install"
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
     }
-
-    stage("Test") {
-        sh "npm run test"
-    }
-
-    stage("Build") {
-        sh "npm run build --prod"
-    }
-    
 }
