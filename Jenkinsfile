@@ -1,26 +1,30 @@
-
 pipeline {
-  agent {
-    docker { image 'node:latest' }
-  }
-  stages {
-    stage('Install') {
-      steps { sh 'npm install' }
-    }
-
-    stage('Test') {
-      parallel {
-        stage('Static code analysis') {
-            steps { sh 'npm run-script lint' }
+    agent {
+        docker {
+            image 'node:10-alpine'
+            args '-p 4200:4200'
         }
-        stage('Unit tests') {
-            steps { sh 'npm run-script test' }
+    }
+    environment {
+        CI = 'true'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'npm install'
+            }
         }
-      }
+        stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
+        stage('Deliver') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)?'
+                sh './jenkins/scripts/kill.sh'
+            }
+        }
     }
-
-    stage('Build') {
-      steps { sh 'npm run-script build' }
-    }
-  }
 }
