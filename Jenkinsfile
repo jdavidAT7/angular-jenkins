@@ -8,11 +8,16 @@ pipeline {
         CI = 'true'
     }
     stages {
-        stage('Build') {
+      stage('Install node modules') {
+            steps {
+                sh 'npm install'
+            }
+      }
+      stage('Build') {
             steps {
                 sh 'npm run build --prod'
             }
-        }
+      } 
         
     }
 }
