@@ -1,23 +1,28 @@
-node {
-    stage('Checkout SCM') {
-        git branch: 'master', url: 'https://github.com/jdavidAT7/angular-jenkins.git'
+pipeline {
+    agent {
+        docker {
+            image 'node:10-alpine'
+        }
     }
-
-    stage('Install node modules') {
-        steps {
+    environment {
+        CI = 'true'
+    }
+    stages {
+        stage('Build') {
+            steps {
                 sh 'npm install'
             }
-    }
-
-    stage("Test") {
+        }
+        stage("Test") {
         sh "npm run test-headless"
     }
 
-    stage("Build") {
-        sh "npm run build --prod"
-    }
+        stage("Build") {
+            sh "npm run build --prod"
+        }
     
     stage("Copy") {
         sh "cp -a /var/jenkins_home/workspace/angular-test/. /var/www/jenkins_test/html/"
     }
+  }
 }
