@@ -19,10 +19,5 @@ pipeline {
             sh "npm run test-headless"
           }
     }
-        stage("Copy") {
-          steps{
-          sh "cp -a /var/jenkins_home/workspace/angular-test/. /var/www/jenkins_test/html/"
-        }
-    }
   }
 }
